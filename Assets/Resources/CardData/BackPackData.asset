@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd1093bc214c2c74d8ea9c834369dc53, type: 3}
+  m_Name: BackPackData
+  m_EditorClassIdentifier: 
+  CardName: Back
+  Size: 10
+  Volume: 5
+  Durability: 5
+  Stackable: 1
+  instSound: {fileID: 8300000, guid: fe55abb63d850174c9d36a812fc12f1c, type: 3}
+  instEff: {fileID: 5736046055632003563, guid: 6f1cbca6e441e44469bec958652fc125, type: 3}
+  clickedSound: {fileID: 8300000, guid: c51a229abe44c6448a100710bdaf49b2, type: 3}
+  clickedEff: {fileID: 5736046055632003563, guid: 6f1cbca6e441e44469bec958652fc125,
+    type: 3}
+  dragSound: {fileID: 0}
+  dragEff: {fileID: 5736046055632003563, guid: 6f1cbca6e441e44469bec958652fc125, type: 3}
+  dropSound: {fileID: 8300000, guid: b4291e06bb4913f4abb64f4fc6add2df, type: 3}
+  dropEff: {fileID: 5736046055632003563, guid: 6f1cbca6e441e44469bec958652fc125, type: 3}
+  stackSound: {fileID: 8300000, guid: 6f739f779b6afb648b526871fb90c92e, type: 3}
+  stackEff: {fileID: 5736046055632003563, guid: 6f1cbca6e441e44469bec958652fc125,
+    type: 3}
+  destroySound: {fileID: 8300000, guid: 4941cc7cf4669fc45bf85bccb37734cc, type: 3}
+  destroyEff: {fileID: 5736046055632003563, guid: 6f1cbca6e441e44469bec958652fc125,
+    type: 3}

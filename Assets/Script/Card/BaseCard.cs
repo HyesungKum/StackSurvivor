@@ -27,6 +27,7 @@ public delegate void Production();
     /// </summary>
     #endregion
     public string CardName;
+
     #region summary
     /// <summary>
     /// card size for stacking 
@@ -35,6 +36,7 @@ public delegate void Production();
     /// </summary>
     #endregion
     public int Size;
+
     #region summary
     /// <summary>
     /// Volume for Stacking can number of stackable Card
@@ -43,6 +45,7 @@ public delegate void Production();
     /// </summary>
     #endregion
     public int Volume;
+
     #region summary
     /// <summary>
     /// card health for can exist in game board
@@ -50,6 +53,7 @@ public delegate void Production();
     /// </summary>
     #endregion
     public int Durability;
+
     #region summary
     /// <summary>
     /// this card cannot make dec when boolian true 
@@ -91,24 +95,6 @@ public class BaseCard : MonoBehaviour
     #endregion
     protected AudioSource cardSoundPlayer = null;
 
-    #region basic sound data
-    protected AudioClip instSound;
-    protected AudioClip clickedSound;
-    protected AudioClip dragSound;
-    protected AudioClip dropSound;
-    protected AudioClip stackSound;
-    protected AudioClip destroySound;
-    #endregion
-
-    #region basic eff data
-    protected ParticleSystem instEff;
-    protected ParticleSystem clickedEff;
-    protected ParticleSystem dragEff;
-    protected ParticleSystem dropEff;
-    protected ParticleSystem stackEff;
-    protected ParticleSystem destroyEff;
-    #endregion
-
     //additional func chain
     protected Production instProd = null;
     protected Production clickedProd = null;
@@ -145,20 +131,6 @@ public class BaseCard : MonoBehaviour
         data.Volume = inputBasicData.Volume;
         data.Durability = inputBasicData.Durability;
         data.Stackable = inputBasicData.Stackable;
-
-        instSound    = inputBasicData.instSound;
-        clickedSound = inputBasicData.clickedSound;
-        dragSound    = inputBasicData.dragSound;
-        dropSound    = inputBasicData.dropSound;
-        stackSound   = inputBasicData.stackSound;
-        destroySound = inputBasicData.destroySound;
-
-        instEff    = inputBasicData.instEff;
-        clickedEff = inputBasicData.clickedEff;
-        dragEff    = inputBasicData.dragEff;
-        dropEff    = inputBasicData.dropEff;
-        stackEff   = inputBasicData.stackEff;
-        destroyEff = inputBasicData.destroyEff;
         #endregion
 
         #region delegate chain
@@ -201,11 +173,11 @@ public class BaseCard : MonoBehaviour
     #endregion
     protected void OnEnable()
     {
-        if (instSound != null)
-            cardSoundPlayer.clip = instSound;
+        if (inputBasicData.instSound != null)
+            cardSoundPlayer.clip = inputBasicData.instSound;
 
-        if (instEff != null)
-            Instantiate(instEff, this.transform);
+        if (inputBasicData.instEff != null)
+            Instantiate(inputBasicData.instEff, this.transform.position, Quaternion.identity, this.transform);
 
         if (instProd != null)
             instProd();
@@ -228,18 +200,19 @@ public class BaseCard : MonoBehaviour
     #endregion
     protected void OnClicked()
     {
-        if (clickedSound != null)
-            cardSoundPlayer.clip = instSound;
+        if (inputBasicData.clickedSound != null)
+            cardSoundPlayer.clip = inputBasicData.clickedSound;
 
-        if (clickedEff != null)
-            Instantiate(clickedEff, this.transform);
+        if (inputBasicData.clickedEff != null)
+            Instantiate(inputBasicData.clickedEff, this.transform.position, Quaternion.identity, this.transform);
 
         if (clickedProd != null)
             clickedProd();
     }
     
     //카드를 클릭한 상태로 움직이면
-    //카드가 움직일 수 있는 상태라면 마우스를 따라서 움직이고
+    //카드가 움직일 수 있는 상태라면
+    //공중으로 조금 뜬 상태로 마우스를 따라서 움직인다
     #region summary
     /// <summary>
     /// call when dragable card move
@@ -247,15 +220,19 @@ public class BaseCard : MonoBehaviour
     #endregion
     protected void OnDrag()
     {
-        if (dragSound != null)
-            cardSoundPlayer.clip = dragSound;
+        if (inputBasicData.dragSound != null)
+            cardSoundPlayer.clip = inputBasicData.dragSound;
 
-        if (dragEff != null)
-            Instantiate(dragEff, this.transform);
+        if (inputBasicData.dragEff != null)
+            Instantiate(inputBasicData.dragEff, this.transform.position, Quaternion.identity, this.transform);
 
-        if (clickedProd != null)
+        if (dragProd != null)
             dragProd();
     }
+    
+    //떨어뜨리면
+    //스택가능한 카드가 있는지 판단하고
+    //없으면 원래 자리로 돌아간다
     #region summary
     /// <summary>
     /// call when draable card dorp gameboard
@@ -263,15 +240,19 @@ public class BaseCard : MonoBehaviour
     #endregion
     protected void OnDrop()
     {
-        if (dropSound != null)
-            cardSoundPlayer.clip = dropSound;
+        if (inputBasicData.dropSound != null)
+            cardSoundPlayer.clip = inputBasicData.dropSound;
 
-        if (dropEff != null)
-            Instantiate(dropEff, this.transform);
+        if (inputBasicData.dropEff != null)
+            Instantiate(inputBasicData.dropEff, this.transform.position, Quaternion.identity, this.transform);
 
         if (dropProd != null)
             dropProd();
     }
+    
+    //떨어뜨렸을때 스택 가능한 카드가 있었다면
+    //카드의 포지션을 해당 카드의 포지션으로 초기화 한후
+    //카드를 list에 쌓으며 active false한다.
     #region summary
     /// <summary>
     /// call when card stacking other card
@@ -279,15 +260,17 @@ public class BaseCard : MonoBehaviour
     #endregion
     protected void OnStack()
     {
-        if (stackSound != null)
-            cardSoundPlayer.clip = stackSound;
+        if (inputBasicData.stackSound != null)
+            cardSoundPlayer.clip = inputBasicData.stackSound;
 
-        if (stackEff != null)
-            Instantiate(stackEff, this.transform);
+        if (inputBasicData.stackEff != null)
+            Instantiate(inputBasicData.stackEff, this.transform.position, Quaternion.identity, this.transform);
 
         if (stackProd != null)
             stackProd();
     }
+
+    //카드가 파괴되면 
     #region summary
     /// <summary>
     /// call when this card destroy 
@@ -300,11 +283,11 @@ public class BaseCard : MonoBehaviour
     }
     protected IEnumerator destroyProcess()
     {
-        if (destroySound != null)
-            cardSoundPlayer.clip = destroySound;
+        if (inputBasicData.destroySound != null)
+            cardSoundPlayer.clip = inputBasicData.destroySound;
 
-        if (destroyEff != null)
-            yield return Instantiate(destroyEff, this.transform);
+        if (inputBasicData.destroyEff != null)
+            yield return Instantiate(inputBasicData.destroyEff, this.transform.position, Quaternion.identity, this.transform);
 
         if (destroyProd != null)
             yield return destroyProd;

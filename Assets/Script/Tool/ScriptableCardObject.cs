@@ -6,37 +6,55 @@ using UnityEngine;
 public class ScriptableCardObject : ScriptableObject
 {
     [Header("Card Status")]
+
+    [Tooltip("Card name to show")]
     [SerializeField] public string CardName;
-    [field:SerializeField] public int Size { get; set; }
 
-    [field: SerializeField] public int Volume { get; set; }
+    [Tooltip("card size for stacking \n" +
+             "ex) can stackable zombie 13 -> building 100\n" +
+             "ex) cannot stackable zombie 13 -x> backpack 5 Size excess")]
+    [SerializeField] public int Size;
 
-    [field: SerializeField] public int Durability { get; set; }
+    [Tooltip("Volume for Stacking can number of stackable Card\n" +
+        "ex) able backpack volume 3 \n {bottle, weapon, flashright}\n" +
+        "ex) disalbe backpack volume3 \n{ant, ant, ant, ant<-volume excess! }")]
+    [SerializeField] public int Volume;
 
-    [field: SerializeField] public bool Stackable = true;
+    [Tooltip("card health for can exist in game board\n" +
+        "ex) zombie burabilit have lower durability than 0 zombie was destroied")]
+    [SerializeField] public int Durability;
+
+    [Tooltip("this card cannot make dec when boolian true\n" +
+        "ex) car stackable = true, \n zombie stackable = false")]
+    [SerializeField] public bool Stackable;
 
     [Header("[Card production]")]
     [Tooltip("instanciate production")]
     [SerializeField] public AudioClip instSound;
-    [SerializeField] public ParticleSystem instEff;
+    [SerializeField] public GameObject instEff;
 
-    [Tooltip("clicked production")]
+    [Tooltip("clicked sound production")]
     [SerializeField] public AudioClip clickedSound;
-    [SerializeField] public ParticleSystem clickedEff;
+    [Tooltip("clicked eff production")]
+    [SerializeField] public GameObject clickedEff;
 
-    [Tooltip("drag production")]
+    [Tooltip("drag sound production")]
     [SerializeField] public AudioClip dragSound;
-    [SerializeField] public ParticleSystem dragEff;
+    [Tooltip("darg eff production")]
+    [SerializeField] public GameObject dragEff;
 
-    [Tooltip("drop production")]
+    [Tooltip("drop sound production")]
     [SerializeField] public AudioClip dropSound;
-    [SerializeField] public ParticleSystem dropEff;
+    [Tooltip("drop eff production")]
+    [SerializeField] public GameObject dropEff;
 
-    [Tooltip("stack production")]
+    [Tooltip("stack sound production")]
     [SerializeField] public AudioClip stackSound;
-    [SerializeField] public ParticleSystem stackEff;
+    [Tooltip("stack eff production")]
+    [SerializeField] public GameObject stackEff;
 
-    [Tooltip("destroy production")]
+    [Tooltip("destroy sound production")]
     [SerializeField] public AudioClip destroySound;
-    [SerializeField] public ParticleSystem destroyEff;
+    [Tooltip("destroy eff production")]
+    [SerializeField] public GameObject destroyEff;
 }
