@@ -1,0 +1,68 @@
+단순하게 카드의 앞면을 render texture로 이용하여 각 카드 오브젝트마다 카메라를 구성하여 카드의 그림을 오브젝트로 구성 할 수 도 있음
+-> 코스트 너무 비쌈! 렉 유발 및 기타 에러 가능성 농후
+
+뎁스 버퍼이용
+
+별도 처리를 이용해서 렌더링을 예외해서 그려줄 수 있도록
+
+뒤집어진 오브젝트도 렌더 파이프라인에서 안그려지는게 아닌 실제로 렌더링 정보는 있어야함
+
+Stencil Buffer 사용
+
+세이더를 작성해서 사용하기로 결정
+
+=======================================================셰이더 공부==================================================
+//어떤 화면이 렌더링 될 때 프레임 버퍼에 각 픽셀의 색상이 기록됨
+//랜더링을 위해서 수행해야 하는 단계 -> 렌더링 파이프라인을 걸침
+
+//셰이더 -> 3D공간에 존재하는 vertex를 2d화면의 pixel로 변환하는 함수(dx, opengl, 등등 유니티에선 shader)
+//입력 조립                                      |데이터를 입력받아서
+    //vertex buffer와 index buffer를 읽어 폴리곤의 형성을 결정 (시계방향으로 인덱스가 정렬될 때 보임)
+
+//-> vertex shader                              |점으로 변환을 마친후
+    //조립된 폴리곤의 각 vertex를 가상의 카메라(2D)화면을 기준으로 보일 수 있도록 변환 연산 
+    //(translate, scale, rotation)matrix이용
+    //local space -> world space -> view space
+        //오브젝트 중심이 원점 오브젝트의 모든 vertex는 오브젝트의 중심으로 계산됨
+        //world space를 기준으로 obj의 위치정보만 가지고 있음
+
+        //local space에 있는 vertex를 world space의 좌표로 변환 계산한다.
+
+        //world space의 vertex 좌표를 camera view 기준의 위치로 계산
+
+    //view space -> clip space
+        //vertex를 원근감 투시를 적용해서 연산 view space에서 영역의 한계가 있음 (view frustum)
+        //clip space 안의 연산된 좌표로 vertex를 절단하고 정렬한다.
+
+//-> Hull Shader
+//-> tesselator 
+    //tile이라는 도형들로 빈틈없이 공간을 채우는것
+    //3차원 물체를 표현하는 폴리곤을 쪼개서 새로운 삼각형으로 만듦
+    //Level of Detail 카메라와 가까운 오브젝트의 폴리곤 수를 늘려 정밀도를 높힘
+//-> domain shader 
+
+//-> geometry shader 
+    //기하 구조를 동적으로 파이프라인에 추가 or 제거
+    //입력되는 도형과 다른 종류의 기본 도형을 출력할 수 있음
+
+//-> stream output 
+
+//-> rasterizer                                 |각 vertex의 정보를 이용하여 픽셀 정보를 계산
+    //변환된 vertex 폴리곤을 조립해 각 폴리곤 사이를 보간을 통해서 프래그먼트 생성
+    //fragment 한 픽셀을 출력하는데 필요한 (컬러, 노멀, uv)
+    //cliping clip space : 바깥의 삼각형을 잘라냄
+    //backface culling : 뒤집혀있는 폴리곤 제거
+    //Perspective Division : 3차원 clip space -> 2차원 변환
+    //viewport 변환 : 투영된 좌표를 실제 screen좌표로 변환
+
+//-> pixel shader                               |각 픽셀의 색상 결정
+    //각 픽셀에 대한 연산으로 최종 컬러값 결정
+    //색상 및 깊이, 반사, 그림자 등등 fragment shader라고도 함 
+
+//-> output merger (깊이/스텐실버퍼, 랜더 타겟)   |화면에 출력
+    //최종 render target으로 출력
+    //depth 판정 : 깊이 버퍼를 이용하여 앞에 있는 것을 판단
+    //stencil 판정 : 특정 픽셀을 기록 못하게 마스킹 ->이것을 이용해 shader 작성!
+    //blending: 픽셀을 출력하면서 어떻게 혼합할지 결정
+
+================================================================================================

@@ -1,0 +1,6 @@
+셰이더lab 공부 
+cg 공부중
+
+아웃라인을 그릴때 단순히 vertex의 normal vertor로 확장만 하면 아웃라인 셰이더가 깨질 수 있다.
+
+vertex의 outline의 길이에 맞게 곱연산하여 전체 scale을 키운다.

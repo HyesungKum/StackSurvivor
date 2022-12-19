@@ -1,0 +1,62 @@
+쉐이더 적용 오브젝트 제작
+
+블렌더 사용 모델링 제작
+
+========================================================================
+외각선 셰이더 제작 필요
+그림자 제거 제작 필요
+
+도합 카툰 렌더링 셰이더 제작중
+cg및 hlsl프로그래밍 교육 필요
+
+=========================================================================
+
+
+
+쉐이더 튜토리얼
+https://www.ronja-tutorials.com/
+물 - 툰 쉐이더
+
+https://roystan.net/articles/toon-water/
+Unity Toon Water Shader Tutorial at Roystan
+Learn to write a toon style water shader for Unity engine, complete with waves and shoreline foam.
+이미지
+https://github.com/zzragida/UnityDocs/wiki/Unity-Shader
+GitHub
+Unity Shader · zzragida/UnityDocs Wiki
+Document for Unity. Contribute to zzragida/UnityDocs development by creating an account on GitHub.
+Unity Shader · zzragida/UnityDocs Wiki
+아웃라인 관련 쉐이더 들
+
+https://www.videopoetics.com/tutorials/pixel-perfect-outline-shaders-unity/
+https://github.com/Shrimpey/Outlined-Diffuse-Shader-Fixed
+https://stackoverflow.com/questions/56023443/outline-shader-unity-similar-to-the-gizmo-editor
+https://roystan.net/articles/outline-shader/
+https://willweissman.wordpress.com/tutorials/shaders/unity-shaderlab-object-outlines/
+Pixel-Perfect Outline Shaders for Unity
+Create outline shaders for Unity that have a stable screen-space width, specified in pixels, regardless of distance from the camera.
+Pixel-Perfect Outline Shaders for Unity
+GitHub
+GitHub - Shrimpey/Outlined-Diffuse-Shader-Fixed: This is a fixed ve...
+This is a fixed version of diffused outline shader from http://wiki.unity3d.com/index.php/Outlined_Diffuse_3 - GitHub - Shrimpey/Outlined-Diffuse-Shader-Fixed: This is a fixed version of diffused o...
+GitHub - Shrimpey/Outlined-Diffuse-Shader-Fixed: This is a fixed ve...
+Stack Overflow
+Outline shader unity similar to the gizmo Editor
+I wonder if I can get the same outline as in the Editor.
+Like this
+
+I tried to use this script https://github.com/michaelcurtiss/UnityOutlineFX
+
+And get this as a result
+이미지
+Unity Outline Shader Tutorial at Roystan
+Learn to write an outline edge detection shader for Unity engine, integrated with the post-processing stack. This effect is especially popular as a compliment to toon shading, or in CAD and architectural rendering.
+이미지
+Will Weissman - Game Developer
+William Weissman
+Unity Shaderlab: Object Outlines
+A new version of this tutorial is here.   This one will be removed eventually.       One of the simplest and most useful effects that isn’t already present in Unity is obj…
+Unity Shaderlab: Object Outlines
+쉐이더 쉐이더 쉐이더...
+https://en.wikibooks.org/wiki/Cg_Programming/Unity
+Cg Programming/Unity
